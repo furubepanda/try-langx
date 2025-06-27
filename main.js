@@ -1,6 +1,5 @@
 import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js/+esm'
 
-// 🟡 必ず自分のSupabase情報に書き換えてください！
 const supabaseUrl = "https://jgkjmmuqjrezlhgitbyr.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impna2ptbXVxanJlemxoZ2l0YnlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5OTE4MTksImV4cCI6MjA2NjU2NzgxOX0.iTacxsHjc9D591jcMJ6Fxqx_KUziU580QencEiPXxMMY";
 const supabase = createClient(supabaseUrl, supabaseKey);
@@ -37,3 +36,4 @@ async function getNextLink() {
     .update({ used: true })
     .eq('id', data.id);
 }
+
