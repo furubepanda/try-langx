@@ -6,7 +6,7 @@ import { createClient } from 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js
 //import { createClient } from '@supabase/supabase-js'
 
 const supabaseUrl = 'https://jgkjmmuqjrezlhgitbyr.supabase.co'
-const supabaseKey = process.env.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impna2ptbXVxanJlemxoZ2l0YnlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5OTE4MTksImV4cCI6MjA2NjU2NzgxOX0.iTacxsHjc9D591jcMJ6Fxqx_KUziU580QencEiPXxMM
+const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Impna2ptbXVxanJlemxoZ2l0YnlyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTA5OTE4MTksImV4cCI6MjA2NjU2NzgxOX0.iTacxsHjc9D591jcMJ6Fxqx_KUziU580QencEiPXxMM'
 const supabase = createClient(supabaseUrl, supabaseKey)
 
 
