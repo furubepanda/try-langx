@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <title>リンク表示アプリ</title>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <style>
+    body { font-family: sans-serif; padding: 30px; }
+    button { font-size: 18px; padding: 10px 20px; }
+    #linkDisplay { margin-top: 20px; font-size: 18px; }
+  </style>
+</head>
+<body>
+  <h1>リンク表示アプリ</h1>
+  <button onclick="getNextLink()">次のリンクを表示</button>
+  <div id="linkDisplay">ここにリンクが表示されます</div>
+
+  <script>
+    // Firebase 設定（プロジェクトごとに変更）
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      storageBucket: "YOUR_PROJECT_ID.appspot.com",
+      messagingSenderId: "YOUR_SENDER_ID",
+      appId: "YOUR_APP_ID"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    async function getNextLink() {
+      const snapshot = await db.collection("links")
+        .where("used", "==", false)
+        .limit(1)
+        .get();
+
+      if (snapshot.empty) {
+        document.getElementById("linkDisplay").textContent = "すべてのリンクが使用済みです。";
+        return;
+      }
+
+      const doc = snapshot.docs[0];
+      const data = doc.data();
+      const link = data.url;
+
+      // 表示
+      document.getElementById("linkDisplay").innerHTML = `<a href="${link}" target="_blank">${link}</a>`;
+
+      // 使用済みに更新
+      await db.collection("links").doc(doc.id).update({ used: true });
+    }
+  </script>
+</body>
+</html>
