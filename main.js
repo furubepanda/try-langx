@@ -11,7 +11,13 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("nextButton").addEventListener("click", getNextLink);
 });
 
+let fetching = false; // prevent duplicate requests
+
 async function getNextLink() {
+  if (fetching) return; // ignore clicks while running
+  fetching = true;
+  const button = document.getElementById("nextButton");
+  if (button) button.disabled = true;
   const display = document.getElementById("linkDisplay");
 
   const { data, error } = await supabase
@@ -24,6 +30,8 @@ async function getNextLink() {
   if (error || !data) {
     display.textContent = "すべてのリンクが使用済みです。";
     console.error("取得エラーまたはリンクなし:", error || "No unused links.");
+    fetching = false;
+    if (button) button.disabled = false;
     return;
   }
 
@@ -39,4 +47,7 @@ async function getNextLink() {
   if (updateError) {
     console.error("使用済み更新エラー:", updateError);
   }
+
+  fetching = false;
+  if (button) button.disabled = false;
 }
